@@ -1,0 +1,36 @@
+services:
+  app:
+    container_name: insurance_app
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    volumes:
+      - .:/app
+    ports:
+      - 5000:4000
+    depends_on:
+      - postgres_app
+    networks:
+      - insura-net
+
+  postgres_app:
+    image: postgres:14-alpine
+    container_name: postgres_app
+    ports:
+      - 15432:5432
+    volumes:
+      - ~/tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - PGUSER=insura_usr
+      - POSTGRES_DB=insura_db
+      - POSTGRES_HOST=insura_host
+    networks:
+      - insura-net
+
+networks:
+  insura-net:
+    name: insurance-network
+    external: true
+
+
