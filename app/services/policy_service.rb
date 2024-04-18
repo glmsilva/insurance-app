@@ -4,6 +4,24 @@ class PolicyService
   end
 
   def all
+    response = JSON.parse(graphql_call(query_all).body)
+    policies = response["data"]["policies"]
+  end
+
+  def self.all
+    new.all
+  end
+
+  private
+
+  def graphql_call(query, variables = {})
+    @conn.post "/graphql" do |req|
+      req.headers[:content_type] = "application/json"
+      req.body = { query: query, variables: variables }.to_json
+    end
+  end
+
+  def query_all
     query =
       <<-Query
         query {
@@ -13,18 +31,13 @@ class PolicyService
               name
               cpf
             }
+          vehicle {
+            licensePlate
           }
+          effectiveDate
+          expirationDate
         }
+      }
       Query
-
-    response = @conn.post "/graphql" do |req|
-      req.headers[:content_type] = "application/json"
-      req.body = { query: query, variables: {} }.to_json
-    end
   end
-
-  def self.all
-    new.all
-  end
-
 end
