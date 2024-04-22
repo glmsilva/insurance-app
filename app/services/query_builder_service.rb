@@ -9,6 +9,9 @@ class QueryBuilderService
               cpf
             }
           vehicle {
+            brand
+            model
+            year
             licensePlate
           }
           effectiveDate

@@ -12,6 +12,9 @@ describe 'Index Policies', type: :request do
               cpf
             }
           vehicle {
+            brand
+            model
+            year
             licensePlate
           }
           effectiveDate
