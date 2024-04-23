@@ -41,6 +41,7 @@ group :development, :test do
   gem "pry"
   gem "pry-nav"
   gem "webmock"
+  gem "dotenv"
 end
 
 group :development do
