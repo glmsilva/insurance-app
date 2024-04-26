@@ -82,7 +82,6 @@ describe 'Index Policies', type: :request do
       it 'show any policy' do
         get policies_path
 
-        binding.pry
         expect(response).to have_http_status(200)
         expect(response.body).to_not include("Phil Foden")
         expect(response.body).to include("Nenhuma apólice")
