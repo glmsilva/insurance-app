@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   private
 
   def generate_token
-    @token = JWT.encode({}, 'banana', 'HS256')
+    @token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
   end
 end
