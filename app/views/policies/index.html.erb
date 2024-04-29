@@ -11,13 +11,11 @@
       </tr>
     </thead>
     <tbody>
-            <% @policies.each do | policy | %>
-          <tr>
-            <td><%= policy["policyId"]%></td>
-            <td><%= policy["insuredPerson"]["name"]%></td>
-            <td><%= policy["insuredPerson"]["cpf"]%></td>
-        <% end %>
-
+      <% @policies.each do | policy | %>
+        <tr>
+          <td><%= policy["policyId"]%></td>
+          <td><%= policy["insuredPerson"]["name"]%></td>
+          <td><%= policy["insuredPerson"]["cpf"]%></td>
+      <% end %>
     </tbody>
-
 <% end %>
