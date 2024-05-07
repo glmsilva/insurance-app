@@ -14,6 +14,16 @@ class PolicyService
     new(query: QueryBuilderService.policies).all
   end
 
+  def create
+    response = JSON.parse(graphql_call.body, symbolize_names: true)
+    policy = response.dig(:data, :createPolicy, :policy)
+
+  end
+
+  def self.create(input)
+    new(query: QueryBuilderService.create_policy, variables: input).create
+  end
+
   private
 
   def graphql_call

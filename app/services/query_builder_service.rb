@@ -44,4 +44,24 @@ class QueryBuilderService
       }
     Query
   end
+
+  def self.create_policy
+    <<-Mutation
+      mutation createPolicy($input: CreatePolicyMutationInput!) {
+        createPolicy(input: $input) {
+          policy {
+            policyId
+            insuredPerson {
+              name
+            }
+            effectiveDate
+            expirationDate
+            vehicle {
+              licensePlate
+            }
+          }
+        }
+      }
+    Mutation
+  end
 end
