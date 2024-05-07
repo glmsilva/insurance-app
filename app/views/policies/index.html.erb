@@ -1,17 +1,21 @@
 <h1>Apólices</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Número da Apólice</th>
-      <th>Segurado</th>
-      <th>CPF</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @policies.each do | policy | %>
+<% if @policies.empty? %>
+      Nenhuma apólice
+<% else %>
+  <table>
+    <thead>
       <tr>
-        <td><%= policy["policyId"]%></td>
-        <td><%= policy["insuredPerson"]["name"]%></td>
-        <td><%= policy["insuredPerson"]["cpf"]%></td>
-    <% end %>
-  </tbody>
+        <th>Número da Apólice</th>
+        <th>Segurado</th>
+        <th>CPF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @policies.each do | policy | %>
+        <tr>
+          <td><%= policy["policyId"]%></td>
+          <td><%= policy["insuredPerson"]["name"]%></td>
+          <td><%= policy["insuredPerson"]["cpf"]%></td>
+      <% end %>
+    </tbody>
+<% end %>
