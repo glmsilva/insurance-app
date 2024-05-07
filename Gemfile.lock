@@ -353,7 +353,6 @@ DEPENDENCIES
   faraday
   importmap-rails
   jbuilder
-  jwt
   omniauth-cognito-idp
   omniauth-google-oauth2 (~> 1.1, >= 1.1.2)
   omniauth-rails_csrf_protection (~> 1.0)

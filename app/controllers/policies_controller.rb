@@ -1,5 +1,5 @@
 class PoliciesController < ApplicationController
   def index
-    @policies = PolicyService.all(@token)
+    @policies = PolicyService.all
   end
 end

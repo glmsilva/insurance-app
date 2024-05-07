@@ -71,21 +71,5 @@ describe 'Index Policies', type: :request do
       expect(response.body).to include("Phil Foden")
       expect(response.body).to include("Edson Arantes")
     end
-
-    context 'when server is down' do
-      before do
-        stub_request(:post, "insurance-graphql:4000/graphql")
-          .with(body: {query: query, variables: {} }.to_json)
-          .to_return(body: { errors: [{ message: "erro" }]}.to_json, status: 500)
-      end
-
-      it 'show any policy' do
-        get policies_path
-
-        expect(response).to have_http_status(200)
-        expect(response.body).to_not include("Phil Foden")
-        expect(response.body).to include("Nenhuma apólice")
-      end
-    end
   end
 end
