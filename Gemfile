@@ -12,12 +12,12 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 gem "devise"
+gem "jwt"
 gem 'omniauth-google-oauth2', '~> 1.1', '>= 1.1.2'
 gem "omniauth-cognito-idp"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "rack-cors"
 gem "faraday"
-gem "jwt"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
