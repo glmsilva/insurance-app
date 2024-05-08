@@ -68,32 +68,36 @@ describe PolicyService do
     end
 
     it 'retrieves all policies' do
-      service = described_class.new(query: QueryBuilderService.policies)
+      token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
+      service = described_class.new(query: QueryBuilderService.policies, token: token)
 
       expect(service.all).to eq(
         [
           {
-            "policyId" => "1",
-            "insuredPerson" => {
-              "name" => "Phil Foden",
-              "cpf" => "123.456.789-10"
+            policyId: "1",
+            insuredPerson: {
+              name: "Phil Foden",
+              cpf: "123.456.789-10"
             },
-            "vehicle" => {
-              "licensePlate" => "ABC1D23"
+            vehicle: {
+              licensePlate: "ABC1D23"
             },
-            "effectiveDate" => "2024-01-01",
-            "expirationDate" => "2025-01-01"
+            effectiveDate: "2024-01-01",
+            expirationDate: "2025-01-01"
           },
           {
-            "policyId" => "2",
-            "insuredPerson" => {
-              "name" => "Edson Arantes",
-              "cpf" => "123.654.987-10"},
-            "vehicle" => {
-              "licensePlate" => "BDF2E34"
+            policyId:"2",
+            insuredPerson: {
+              name:"Edson Arantes",
+              cpf:"123.654.987-10"
             },
-            "effectiveDate" => "2024-01-01",
-            "expirationDate" => "2025-01-01"}]
+            vehicle: {
+              licensePlate:"BDF2E34"
+            },
+            effectiveDate:"2024-01-01",
+            expirationDate:"2025-01-01"
+          }
+        ]
       )
     end
   end
@@ -159,7 +163,8 @@ describe PolicyService do
     end
 
     it 'creates a policy successfully' do
-      service = described_class.new(query: QueryBuilderService.create_policy, variables: variables)
+      token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
+      service = described_class.new(query: QueryBuilderService.create_policy, variables: variables, token: token)
       expect(service.create).to include(
         policyId: 1
       )

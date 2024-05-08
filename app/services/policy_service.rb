@@ -7,12 +7,12 @@ class PolicyService
   end
 
   def all
-    response = JSON.parse(graphql_call.body)
+    response = JSON.parse(graphql_call.body, symbolize_names: true)
+    binding.pry
 
-    if response.has_key? "errors"
-      return []
-    end
-    policies = response["data"]["policies"]
+    return [] if response.has_key? :errors
+
+    policies = response.dig(:data, :policies)
   rescue Faraday::ConnectionFailed => e
     Rails.logger.info e
     return []
@@ -28,8 +28,8 @@ class PolicyService
 
   end
 
-  def self.create(input)
-    new(query: QueryBuilderService.create_policy, variables: input).create
+  def self.create(input, token)
+    new(query: QueryBuilderService.create_policy, variables: input, token: token).create
   end
 
   private

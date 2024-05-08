@@ -13,9 +13,9 @@
     <tbody>
       <% @policies.each do | policy | %>
         <tr>
-          <td><%= policy["policyId"]%></td>
-          <td><%= policy["insuredPerson"]["name"]%></td>
-          <td><%= policy["insuredPerson"]["cpf"]%></td>
+          <td><%= policy[:policyId]%></td>
+          <td><%= policy[:insuredPerson][:name]%></td>
+          <td><%= policy[:insuredPerson][:cpf]%></td>
       <% end %>
     </tbody>
 <% end %>
