@@ -8,7 +8,6 @@ class PolicyService
 
   def all
     response = JSON.parse(graphql_call.body, symbolize_names: true)
-    binding.pry
 
     return [] if response.has_key? :errors
 
@@ -28,8 +27,8 @@ class PolicyService
 
   end
 
-  def self.create(input, token)
-    new(query: QueryBuilderService.create_policy, variables: input, token: token).create
+  def self.create(input:, token:)
+    new(query: QueryBuilderService.create_policy, variables: input.to_json, token: token).create
   end
 
   private

@@ -151,6 +151,7 @@ describe PolicyService do
         }
       }
     end
+
     before do
       stub_request(:post, "#{ENV['GRAPHQL_API_URL']}/graphql")
         .with(
