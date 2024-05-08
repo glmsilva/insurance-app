@@ -59,13 +59,16 @@ describe 'Index Policies', type: :request do
     end
 
     before do
-      stub_request(:post, "insurance-graphql:4000/graphql")
+      stub_request(:post, "#{ENV['GRAPHQL_API_URL']}/graphql")
         .with(body: {query: query, variables: {} }.to_json)
         .to_return(body: graphql_response.to_json, status: 200)
     end
 
     it 'views policies with success' do
-      get policies_path
+      token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
+      user = build(:user)
+      sign_in user
+      get policies_path, headers: { 'AUTHORIZATION' => "Bearer #{token}"}
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("Phil Foden")
@@ -74,13 +77,17 @@ describe 'Index Policies', type: :request do
 
     context 'when server is down' do
       before do
-        stub_request(:post, "insurance-graphql:4000/graphql")
+        stub_request(:post, "#{ENV['GRAPHQL_API_URL']}/graphql")
           .with(body: {query: query, variables: {} }.to_json)
           .to_return(body: { errors: [{ message: "erro" }]}.to_json, status: 500)
       end
 
       it 'show any policy' do
-        get policies_path
+        token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
+        user = build(:user)
+        sign_in user
+
+        get policies_path, headers: { 'AUTHORIZATION' => "Bearer #{token}"}
 
         expect(response).to have_http_status(200)
         expect(response.body).to_not include("Phil Foden")

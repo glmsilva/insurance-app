@@ -44,6 +44,7 @@ group :development, :test do
   gem "pry-nav"
   gem "webmock"
   gem "dotenv"
+  gem "factory_bot_rails"
 end
 
 group :development do
