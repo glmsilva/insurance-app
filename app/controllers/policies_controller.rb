@@ -3,40 +3,42 @@ class PoliciesController < ApplicationController
     @policies = PolicyService.all(@token)
   end
 
+  def new
+
+  end
+
   def create
-    @policy = PolicyService.create(input: build_input(params), token: @token)
+    @policy = PolicyService.create(input: build_input, token: @token)
+    redirect_to policies_path
   end
 
   private
 
-  def build_input(params)
+  def build_input
     {
       input:
-        permitted_params.to_unsafe_h.deep_transform_keys { |key| key.to_s.camelize(:lower) }.deep_symbolize_keys
+        policy_params.deep_transform_keys { |key| key.to_s.camelize(:lower) }.deep_symbolize_keys
     }
   end
 
-  def permitted_params
-    params.permit(insured_person_params, vehicle_params)
+  def policy_params
+    insured_person_params.merge(vehicle_params)
+
   end
 
   def insured_person_params
     {
-      insured_person: [
-        :name,
-        :cpf
-      ]
+      insured_person: {
+        **params["[insured_person]"].to_unsafe_h
+      }
     }
   end
 
   def vehicle_params
     {
-      vehicle: [
-        :brand,
-        :model,
-        :year,
-        :license_plate
-      ]
+      vehicle: {
+        **params["[vehicle]"].to_unsafe_h
+      }
     }
   end
 end

@@ -1,1 +1,22 @@
 <h1>Criar apólice</h1>
+
+<%= form_with url: policies_path do |form| %>
+  <%= form.fields_for :insured_person do |form| %>
+    <%= form.label :name, "Nome" %>
+    <%= form.text_field :name %>
+    <%= form.label :cpf, "CPF" %>
+    <%= form.text_field :cpf %>
+  <% end %>
+  <%= form.fields_for :vehicle do |form| %>
+    <%= form.label :brand, "Marca" %>
+    <%= form.text_field :brand %>
+    <%= form.label :model, "Modelo" %>
+    <%= form.text_field :model %>
+    <%= form.label :year, "Ano" %>
+    <%= form.text_field :year %>
+    <%= form.label :license_plate, "Placa" %>
+    <%= form.text_field :license_plate %>
+  <% end %>
+
+  <%= form.submit "Criar" %>
+<% end %>
